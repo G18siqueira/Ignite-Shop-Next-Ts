@@ -14,6 +14,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import 'keen-slider/keen-slider.min.css'
+import Head from 'next/head'
 
 interface HomeProps {
   products: {
@@ -41,51 +42,57 @@ export default function Home({ products }: HomeProps) {
   })
 
   return (
-    <HomeContainer>
-      <SliderContainer ref={sliderRef} className="keen-slider">
-        {products.map((product) => {
-          return (
-            <Link
-              key={product.id}
-              href={`/product/${product.id}`}
-              className="keen-slider__slide"
-              prefetch={false}
-            >
-              <Product>
-                <Image
-                  src={product.imageUrl}
-                  width={520}
-                  height={480}
-                  alt={''}
-                />
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
 
-                <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
-                </footer>
-              </Product>
-            </Link>
-          )
-        })}
-      </SliderContainer>
+      <HomeContainer>
+        <SliderContainer ref={sliderRef} className="keen-slider">
+          {products.map((product) => {
+            return (
+              <Link
+                key={product.id}
+                href={`/product/${product.id}`}
+                className="keen-slider__slide"
+                prefetch={false}
+              >
+                <Product>
+                  <Image
+                    src={product.imageUrl}
+                    width={520}
+                    height={480}
+                    alt={''}
+                  />
 
-      <SliderButtons>
-        <button
-          onClick={(e: any) =>
-            e.stopPropagation() || instanceRef.current?.prev()
-          }
-        >
-          <SlArrowLeft />
-        </button>
-        <button
-          onClick={(e: any) =>
-            e.stopPropagation() || instanceRef.current?.next()
-          }
-        >
-          <SlArrowRight />
-        </button>
-      </SliderButtons>
-    </HomeContainer>
+                  <footer>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </footer>
+                </Product>
+              </Link>
+            )
+          })}
+        </SliderContainer>
+
+        <SliderButtons>
+          <button
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.prev()
+            }
+          >
+            <SlArrowLeft />
+          </button>
+          <button
+            onClick={(e: any) =>
+              e.stopPropagation() || instanceRef.current?.next()
+            }
+          >
+            <SlArrowRight />
+          </button>
+        </SliderButtons>
+      </HomeContainer>
+    </>
   )
 }
 
